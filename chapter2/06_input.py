@@ -1,0 +1,6 @@
+a = int(input('Enter first number :'))
+b = int(input('Enter second number :'))
+c = (input('Enter third number :'))
+d = (input('Enter fourth number :'))
+print(a+b)
+print(c+d)
