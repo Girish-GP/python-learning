@@ -7,4 +7,4 @@ for i in range(1,5):
     userInfo[name] = lang
 print(f"The final dictionary is: {userInfo}") #{'girish': 'english', 'nikhil': 'hindi', 'sharan': 'tamil', 'kaustubh': 'marathi'}
 
-#what happens when two friends have same name
+
