@@ -3,11 +3,11 @@ b = 23.23
 c = "12.23"
 d = True
 e = None
-print(type(a))
-print(type(b))
-print(type(c))
-print(type(d))
-print(type(e))
+print(type(a)) # <class 'int'>
+print(type(b)) # <class 'float'>
+print(type(c)) # <class 'str'>
+print(type(d)) # <class 'bool'>
+print(type(e)) #<class 'NoneType'>
 
 x = bool(a)
 y = bool(0)

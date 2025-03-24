@@ -2,3 +2,4 @@
 
 num = int(input('Enter number:'))
 print('Square of',num,'is',num*num)
+print('Square of',num,'is',num**2)
