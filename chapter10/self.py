@@ -24,7 +24,7 @@ print(student1.getInfo()) # As we used self parameter now it will call getInfo w
 #every method should have self parameter
 
 
-#@staticmethod --> a decorator to define statis method
+#@staticmethod --> a decorator to define static method
 
 print(student1.greet()) #hello
 
