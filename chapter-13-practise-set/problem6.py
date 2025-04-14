@@ -1,0 +1,1 @@
+# run pip freeze and use the contents to create a virtual env with same configuration
