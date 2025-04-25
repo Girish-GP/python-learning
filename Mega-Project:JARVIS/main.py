@@ -1,71 +1,51 @@
-import speech_recognition as sr # type: ignore
-import webbrowser
-import pyttsx3 # type: ignore
 
-speech_recognizer = sr.Recognizer()
-engine = pyttsx3.init()
+import speech_recognition as sr # type: ignore , speech recognition module
+import webbrowser # webbrowser module imported for opening the sites
+import pyttsx3 # type: ignore , text to speech module 
+import musicLibrary
 
-def speak(text):
-    engine.say(text)
-    engine.runAndWait()
+engine = pyttsx3.init() # created a object engine which has access to all classes and methods of pyttsx3
 
-if __name__ == "__main__": # when the file is directly executed
-    speak("Initializing Jarvis...")
-    while True:
-        #listen for wake word Jarvis
-        r = sr.Recognizer() #create a object using Recognizer class 
-        with sr.Microphone() as source:
-            print("Listening")
-            audio = r.listen(source)
-
-            #recognize
-            # Recognize speech using Google Web Speech API
-            try:
-                print("You said: " + r.recognize_google(audio))
-            except sr.UnknownValueError:
-                print("Could not understand audio")
-            except sr.RequestError as e:
-                print(f"Could not request results from Google Speech Recognition service; {e}")
-
-
-
-
-import speech_recognition as sr
-import pyttsx3
-import webbrowser
-engine = pyttsx3.init()
-def speak(text):
-    engine.say(text)
-    engine.runAndWait()
+def speak(text): #speak function to speak text
+    engine.say(text) # say fucntion which performs the operation of speaking
+    engine.runAndWait() # function which completes the process above it
 
 def process_command(c):
-    if 'open google' in c.lower():
-        webbrowser.open("https://www.google.com")
-    elif 'open youtube' in c.lower():
-        webbrowser.open("https://www.youtube.com")
-    elif 'open facebook' in c.lower():
-        webbrowser.open("https://www.facebook.com")
+    if 'open youtube' in c.lower():
+        webbrowser.open('https://www.youtube.com') #using webbrowser open method to open site
+    elif 'open google' in c.lower():
+        webbrowser.open('https://www.google.com')
+    elif c.lower().startswith('play'):
+        link = musicLibrary.music[c.lower().split(' ')[1]]
+        webbrowser.open(link)
+    elif 'exit' in c.lower():
+        speak("Goodbye")
+        exit()
     else:
-        speak("Sorry i cant understand your command")
+        speak("Cant understand given command . Pls try some other command")
 
+if __name__ == "__main__":
+    speak("Initializing Jarvis....") # starting jarvis
 
-if __name__ == '__main__':
-    speak("Initiating jarvis...")
-    while True:
-        r = sr.Recognizer()
+    while True: # for continous execution
         try:
-             with sr.Microphone() as source:
-                 print("Listening....")
-                 audio = r.listen(source,timeout=2,phrase_time_limit=1)
-                 print("Recognizing....")
-                 temp = r.recognize_google(audio)
-                 if temp.lower() == 'jarvis':
-                     command = r.listen(source)
-                     process_command(command)
-                     
-                     
+            r = sr.Recognizer() # created object r using Recognizer class
+            with sr.Microphone() as source: # opening microphone and assigned the audio stream to source object
+                audio = r.listen(source,timeout=2,phrase_time_limit=1) #listen to the source
+                try:
+                    trigger_word = r.recognize_google(audio)
+                    if 'jarvis' in trigger_word:  # If the trigger word is detected
+                        speak("Yes, how can I help?")
+                        print("Listening for command...")
+                        command = r.listen(source,timeout=2,phrase_time_limit=1) #listen to the command
+                        print("Recognizing....")
+                        temp = r.recognize_google(command) # recognize the command
+                        process_command(temp) # process the command
+                    else:
+                        print("Not able to interpret the command")
+                except Exception as e:
+                    print(e)
+        
+
         except Exception as e:
             print(e)
-
-    
-
